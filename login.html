@@ -23,6 +23,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- My script -->
+    <script src="js/userful.js"></script>
 
 </head>
 
@@ -86,14 +93,14 @@
                 </h1>
                 <div class="col-md-offset-5 col-md-3">
                     <div class="form-login">
-                    <h4>Welcome, Please Login</h4>
+                    <h4>Welcome, Please Log in</h4>
                     <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
                     </br>
                     <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
                     </br>
                     <div class="wrapper">
                     <span class="group-btn">
-                        <a href="#" class="btn btn-primary btn-md">login <span class="glyphicon glyphicon-log-in"></span></a>
+                        <a href="#" class="btn btn-primary btn-md" id="loginBtn">login <span class="glyphicon glyphicon-log-in"></span></a>
                     </span>
                     </div>
                     </div>
@@ -107,11 +114,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -120,6 +122,20 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
+    <!-- login script -->
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+      // get the click button
+      $("#loginBtn").click(function() {
+        // alert("got clicked");
+        nag();
+      });
+
+    });
+
+    </script>
+
 
 </body>
 
