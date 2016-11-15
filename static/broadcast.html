@@ -1,0 +1,71 @@
+<div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well well-sm">
+          <form class="form-horizontal">
+          <fieldset>
+            <legend class="text-center">Broadcast Alert</legend>
+
+            <!-- Alert level-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="name">Alert Level</label>
+              <div class="col-md-9">
+                <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                <div class="radio text-info">
+                  <label><input type="radio" name="optradio" value="GREEN_LEVEL" checked="checked">Green -- Announcement</label>
+                </div>
+                <div class="radio text-warning">
+                  <label><input type="radio" name="optradio" value="ORANGE_LEVEL">Orange -- Caution/Risk/Drill</label>
+                </div>
+                <div class="radio text-danger">
+                  <label><input type="radio" name="optradio" value="RED_LEVEL">Red -- Real Emergency</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Display length-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="email">Display Length</label>
+              <div class="col-md-9">
+                  <select class="form-control" id="duration">
+                    <option value=10000>10 seconds</option>
+                    <option value=20000>20 seconds</option>
+                    <option value=30000>30 seconds</option>
+                    <option value=40000>40 seconds</option>
+                  </select>
+                <!-- <input id="duration" name="email" type="text" placeholder="Your email" class="form-control"> -->
+              </div>
+            </div>
+
+            <!-- Message body -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="message">Your message</label>
+              <div class="col-md-9">
+                <textarea class="form-control" id="message" name="message" placeholder="Please enter your message here... Maximum 140 letters" rows="5"></textarea>
+              </div>
+            </div>
+
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary" id="broadcastBtn">Broadcast</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+      </div>
+	</div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      // get the click button
+      $("#broadcastBtn").click(function() {
+        var message = $('#message').val();
+        var duration = parseInt($('#duration').val()); // explicit as number so it won't be surrounded by quotes by stringify
+        var alertLevel = $('input[name=optradio]:checked').val();
+
+        startBroadcast(message, alertLevel, duration);
+      });
+
+    });
+
+  </script>

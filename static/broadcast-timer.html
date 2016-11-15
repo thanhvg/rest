@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  <h2>Broacasting now</h2>
+  <p>Message</p>
+  <div class="well" id="msgWell"></div>
+  <p>Progress</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%" id="progress-bar">
+
+    </div>
+  </div>
+  <button type="button" class="btn btn-warning pull-right">Stop</button>
+</div>
+</div>
+<script type="text/javascript">
+  //var i = 0;
+  var message = MESSAGE;
+  var timer = DURATION;
+  document.getElementById('msgWell').innerHTML = message;
+  var time_steps = timer/1000;
+  var progress_step = 100/time_steps;
+  var i = 0;
+  var time_left = timer/1000
+
+  var counterBack = setInterval(function(){
+    i += progress_step ;
+    time_left = time_left - 1;
+    if (i <= 100){
+      $('.progress-bar').css('width', i+'%');
+      document.getElementById('progress-bar').innerHTML = time_left + " seconds left"
+    } else {
+      document.getElementById('progress-bar').innerHTML = 'Done';
+      clearInterval(counterBack);
+    }
+  }, 1000);
+
+  $(document).ready(function(){
+
+
+  });
+
+
+</script>

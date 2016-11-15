@@ -125,3 +125,38 @@ function doNetworkStation() {
   });
 
 }
+
+function startBroadcast(_message, _alertLevel, _duration) {
+  $.ajax({
+    type: 'PUT',
+    url: ROOTURL + '/system/broadcast/start',
+    data: JSON.stringify({
+      message: _message,
+      alertLevel: _alertLevel,
+      lengthMillisec: _duration
+    }),
+    success: function(result, textStatus, jqXHR){
+      showNowBroadcast(_message,_duration);
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      alert('Broadcast error: ' + textStatus);
+    }
+  });
+}
+
+function doBroadcast() {
+  //log in check
+  if (!JSESSIONID) {
+    doLogin();
+    return;
+  }
+
+  $('#mainContent').load('static/broadcast.html');
+
+}
+
+function showNowBroadcast(_message,_duration) {
+  MESSAGE = _message;
+  DURATION = _duration;
+  $('#mainContent').load('static/broadcast-timer.html');
+}
