@@ -18,7 +18,10 @@
       // get the click button
       $("#loginBtn").click(function() {
         // alert("got clicked");
-        nag();
+        // nag();
+        var username = $('#userName').val();
+        var password = $('#userPassword').val();
+        sendLoginReqest(username,password);
       });
 
     });
