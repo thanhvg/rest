@@ -146,7 +146,9 @@ function doBroadcast() {
 }
 
 function showNowBroadcast(_message,_duration) {
-  MESSAGE = _message;
-  DURATION = _duration;
-  $('#mainContent').load('static/broadcast-timer.html');
+  //MESSAGE = _message; no need of global vars haha
+  // DURATION = _duration;
+  $('#mainContent').load('static/broadcast-timer.html', function(){
+    showTimer(_message, _duration);
+  });
 }
