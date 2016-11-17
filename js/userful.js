@@ -9,15 +9,6 @@ function nag() {
   alert("got clicked");
 }
 
-// ajax template
-// function login
-function login(username, password) {
-  // $.ajax (url:"http://192.168.120.199:9000/api/session",
-  //         success: function(result) {
-  //
-  //         }});
-}
-
 function doLogin() {
   // can have parameter to move to page after loggin
   $('#mainContent').load('static/login.html');
@@ -32,7 +23,6 @@ function doLogout() {
     success: function(result, textStatus, jqXHR){
       JSESSIONID = null;
       USER = null;
-      ;
       document.getElementById("mainContent").innerHTML = "You have logged out";
       flipLogInOut();
     },
@@ -158,7 +148,9 @@ function doBroadcast() {
 }
 
 function showNowBroadcast(_message,_duration) {
-  MESSAGE = _message;
-  DURATION = _duration;
-  $('#mainContent').load('static/broadcast-timer.html');
+  //MESSAGE = _message; no need of global vars haha
+  // DURATION = _duration;
+  $('#mainContent').load('static/broadcast-timer.html', function(){
+    showTimer(_message, _duration);
+  });
 }
