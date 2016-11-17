@@ -195,3 +195,21 @@ function getPresetList() {
     }
   });
 }
+
+function deletePresetButtonClick(objectButton) {
+  deletePreset(objectButton, function(){
+    $(objectButton).parents('.panel.panel-primary').hide(400, 'swing');
+  });
+}
+
+function deletePreset(objectButton, successFunction) {
+  var _presetid = $(objectButton).parents('.panel.panel-primary').find('.well').html();
+  $.ajax({
+    type: 'DELETE',
+    url: ROOTURL + '/presets/byid/' + _presetid,
+    success: successFunction(),
+    error: function(jqXHR, textStatus, errorThrown){
+      alert('Broadcast error: ' + textStatus);
+    }
+  });
+}
