@@ -1,7 +1,9 @@
 //Global vars
 USER = null;
 JSESSIONID = null;
-ROOTURL = 'http://192.168.120.199:9000/api';
+//ROOTURL = 'http://192.168.120.199:9000/api';
+ROOTURL = 'http://192.168.122.238:9000/api';
+
 
 function nag() {
   alert("got clicked");
