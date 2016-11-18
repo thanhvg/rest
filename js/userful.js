@@ -197,16 +197,17 @@ function getPresetList() {
 }
 
 function deletePresetButtonClick(objectButton) {
-  deletePreset(objectButton, function(){
+  var _presetid = $(objectButton).parents('.panel.panel-primary').find('.well').html();
+  deletePreset(_presetid, function(){
     $(objectButton).parents('.panel.panel-primary').hide(400, 'swing');
   });
 }
 
-function deletePreset(objectButton, successFunction) {
-  var _presetid = $(objectButton).parents('.panel.panel-primary').find('.well').html();
+//should take a preset id, instead of objectButton to be more abstract
+function deletePreset(presetid, successFunction) {
   $.ajax({
     type: 'DELETE',
-    url: ROOTURL + '/presets/byid/' + _presetid,
+    url: ROOTURL + '/presets/byid/' + presetid,
     success: successFunction(),
     error: function(jqXHR, textStatus, errorThrown){
       alert('Broadcast error: ' + textStatus);
