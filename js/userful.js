@@ -1,8 +1,8 @@
 //Global vars
 USER = null;
-JSESSIONID = null;
-//ROOTURL = 'http://192.168.120.199:9000/api';
-ROOTURL = 'http://192.168.122.238:9000/api';
+JSESSIONID = null; //should get cookie instead
+ROOTURL = 'http://192.168.120.199:9000/api';
+//ROOTURL = 'http://192.168.122.238:9000/api';
 
 
 function nag() {
@@ -67,10 +67,10 @@ function flipLogInOut() {
 
 function doNetworkStation() {
   //log in check
-  if (!JSESSIONID) {
-    doLogin();
-    return;
-  }
+  // if (!JSESSIONID) {
+  //   doLogin();
+  //   return;
+  // }
   // ok now list the table
   $.ajax({
     type: 'GET',
@@ -138,10 +138,10 @@ function startBroadcast(_message, _alertLevel, _duration) {
 
 function doBroadcast() {
   //log in check
-  if (!JSESSIONID) {
-    doLogin();
-    return;
-  }
+  // if (!JSESSIONID) {
+  //   doLogin();
+  //   return;
+  // }
 
   $('#mainContent').load('static/broadcast.html');
 
@@ -152,5 +152,64 @@ function showNowBroadcast(_message,_duration) {
   // DURATION = _duration;
   $('#mainContent').load('static/broadcast-timer.html', function(){
     showTimer(_message, _duration);
+  });
+}
+
+function doPreset() {
+  //$('#mainContent').load('static/preset.html');
+  getPresetList();
+
+}
+
+function getPresetList() {
+
+  $.ajax({
+    type: 'GET',
+    url: ROOTURL + '/presets',
+    dataType: "json",
+    success: function(result, textStatus, jqXHR){
+      var presets = result.presets;
+      // should check if null
+
+      // clear content
+      $('#mainContent').html("");
+
+      // get document
+      var elem;
+      $.get('static/preset.html', function(response){
+        console.log(presets.length);
+        for (i = 0; i < presets.length; i++) {
+          elem = $(response);
+          //console.log(elem.find(".panel-heading").html('thanh'));
+          elem.find(".panel-heading").html(presets[i].name);
+          elem.find(".well").html(presets[i].id);
+
+
+          $('#mainContent').append(elem);
+        }
+        // now change the value
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      alert('Preset error: ' + textStatus);
+    }
+  });
+}
+
+function deletePresetButtonClick(objectButton) {
+  deletePreset(objectButton, function(){
+    $(objectButton).parents('.panel.panel-primary').hide(400, 'swing');
+  });
+}
+
+function deletePreset(objectButton, successFunction) {
+  var _presetid = $(objectButton).parents('.panel.panel-primary').find('.well').html();
+  $.ajax({
+    type: 'DELETE',
+    url: ROOTURL + '/presets/byid/' + _presetid,
+    success: successFunction(),
+    error: function(jqXHR, textStatus, errorThrown){
+      alert('Broadcast error: ' + textStatus);
+    }
   });
 }
