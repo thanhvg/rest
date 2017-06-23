@@ -1,9 +1,10 @@
 //Global vars
 USER = null;
 JSESSIONID = null; //should get cookie instead
-ROOTURL = 'http://192.168.120.199:9000/api';
+// ROOTURL = 'http://192.168.120.199:9000/api';
+// ROOTURL = 'http://192.168.120.158/api/E00-69AA-4E0B-BD3F';
+ROOTURL = 'http://testnet15.userful.ca:9000/api';
 //ROOTURL = 'http://192.168.122.238:9000/api';
-
 
 function nag() {
   alert("got clicked");
@@ -20,6 +21,9 @@ function doLogout() {
     type: 'DELETE',
     url: ROOTURL + '/session',
 
+    xhrFields: {
+          withCredentials: true
+    },
     success: function(result, textStatus, jqXHR){
       JSESSIONID = null;
       USER = null;
@@ -37,6 +41,9 @@ function sendLoginReqest(username, password) {
     type: 'POST',
     url: ROOTURL + '/session',
     dataType: "json",
+    xhrFields: {
+          withCredentials: true
+    },
     data: JSON.stringify({
       "user":username,
       "password":password
@@ -74,10 +81,13 @@ function doNetworkStation() {
   // ok now list the table
   $.ajax({
     type: 'GET',
-    url: ROOTURL + '/network-stations',
+    url: ROOTURL + '/network',
     dataType: "json",
+    xhrFields: {
+          withCredentials: true
+    },
     success: function(result, textStatus, jqXHR){
-      var arr = result.networkStations;
+      var arr = result.network;
       var i;
       var out = "<div class='table-responsive'> <table class='table'>";
       var table_header = "<thead>" +
@@ -127,6 +137,9 @@ function startBroadcast(_message, _alertLevel, _duration) {
       alertLevel: _alertLevel,
       lengthMillisec: _duration
     }),
+    xhrFields: {
+          withCredentials: true
+    },
     success: function(result, textStatus, jqXHR){
       showNowBroadcast(_message,_duration);
     },
@@ -167,6 +180,9 @@ function getPresetList() {
     type: 'GET',
     url: ROOTURL + '/presets',
     dataType: "json",
+    xhrFields: {
+          withCredentials: true
+    },
     success: function(result, textStatus, jqXHR){
       var presets = result.presets;
       // should check if null
@@ -208,6 +224,9 @@ function deletePreset(presetid, successFunction) {
   $.ajax({
     type: 'DELETE',
     url: ROOTURL + '/presets/byid/' + presetid,
+    xhrFields: {
+          withCredentials: true
+    },
     success: successFunction(),
     error: function(jqXHR, textStatus, errorThrown){
       alert('Broadcast error: ' + textStatus);
